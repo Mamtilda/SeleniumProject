@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -27,7 +28,7 @@ public class SeleniumTest {
     }
 
     public void amazonSearch() {
-        driver.findElement(By.id("twotabsearchtextbox")).sendKeys("iphone");
+        driver.findElement(By.id("twotabsearchtextbox")).sendKeys("speakers");
         driver.findElement(By.id("nav-search-submit-button")).click();
     }
 
@@ -36,19 +37,24 @@ public class SeleniumTest {
     }
     public void amazonAddToCart() {
         driver.findElement(By.id("add-to-cart-button")).click();
-        WebElement noThanksButton = driver.findElement(By.xpath("//input[@aria-labelledby='attachSiNoCoverage-announce']"));
-        JavascriptExecutor executor = (JavascriptExecutor) driver;
-        executor.executeScript("arguments[0].click();", noThanksButton);
+
     }
-    /*
+
     public void amazonRemoveFromCart() {
-        driver.findElement(By.id("nav-cart-count-container")).click();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("submit.deleteItem")));
-        WebElement deleteButton = driver.findElement(By.name("submit.deleteItem"));
+        WebElement basketButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("[aria-labelledby='attach-sidesheet-view-cart-button-announce']")));
+        basketButton.click();
+
+
+        WebElement deleteButton = driver.findElement(By.xpath("//input[@value='Delete']"));
         deleteButton.click();
 
-    }*/
+        // Close the browser
+        driver.quit();
+
+
+
+    }
     public static void main(String [] args) {
         SeleniumTest test = new SeleniumTest();
 
@@ -57,7 +63,8 @@ public class SeleniumTest {
         test.amazonSearch();
         test.amazonSelectItem();
         test.amazonAddToCart();
-        
+        test.amazonRemoveFromCart();
+
     }
 
 
